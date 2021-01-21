@@ -21,6 +21,8 @@ x-rack: &rack
     - redis
   ports:
     - 9292:9292
+    - .:/18xx
+    - /18xx/vendor
   logging:
     options:
       max-size: "50m"
@@ -39,6 +41,20 @@ services:
   queue:
     <<: *rack
     command: bundle exec ruby queue.rb
+    environment:
+      RACK_ENV: production
+      DATABASE_URL: $DATABASE_URL
+      ELASTIC_KEY: $ELASTIC_KEY
+      RUBYOPTS: --jit
+    build:
+      args:
+        RACK_ENV: production
+    volumes:
+      - .:/18xx
+      - /18xx/vendor
+    logging:
+      options:
+        max-size: "10m"
 
   db:
     environment:
