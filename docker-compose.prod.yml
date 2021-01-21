@@ -19,6 +19,8 @@ x-rack: &rack
   depends_on:
     - db
     - redis
+  ports:
+    - 9292:9292
   logging:
     options:
       max-size: "50m"
