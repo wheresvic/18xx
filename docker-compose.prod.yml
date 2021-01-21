@@ -29,9 +29,13 @@ services:
   rack:
     <<: *rack
 
-  rack_backup:
-    <<: *rack
-
+  # rack_backup:
+  #  <<: *rack
+  #  build:
+  #    context: .
+  #  ports:
+  #    - 9292:9292
+  
   queue:
     <<: *rack
     command: bundle exec ruby queue.rb
